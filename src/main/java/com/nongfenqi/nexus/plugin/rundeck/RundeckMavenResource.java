@@ -55,12 +55,11 @@ public class RundeckMavenResource
 
     @GET
     @Path("content")
-    public Response content(
-            @QueryParam("r") String repositoryName,
-            @QueryParam("g") String groupId,
-            @QueryParam("a") String artifactId,
-            @QueryParam("v") String version
-    ) {
+    public Response content(@QueryParam("r") String repositoryName,
+                            @QueryParam("g") String groupId,
+                            @QueryParam("a") String artifactId,
+                            @QueryParam("v") String version)
+    {
         if (isBlank(repositoryName) || isBlank(groupId) || isBlank(artifactId) || isBlank(version)) {
             return NOT_FOUND;
         }
@@ -101,15 +100,13 @@ public class RundeckMavenResource
     @GET
     @Path("version")
     @Produces(APPLICATION_JSON)
-    public List<RundeckXO> version(
-            @DefaultValue("10") @QueryParam("l") int limit,
-            @QueryParam("r") String repository,
-            @QueryParam("g") String groupId,
-            @QueryParam("a") String artifactId,
-            @QueryParam("c") String classifier,
-            @QueryParam("p") String extension
-    ) {
-
+    public List<RundeckXO> version(@DefaultValue("10") @QueryParam("l") int limit,
+                                   @QueryParam("r") String repository,
+                                   @QueryParam("g") String groupId,
+                                   @QueryParam("a") String artifactId,
+                                   @QueryParam("c") String classifier,
+                                   @QueryParam("p") String extension)
+    {
         log.debug("param value, repository: {}, limit: {}, groupId: {}, artifactId: {}, classifier: {}, extension: {}", repository, limit, groupId, artifactId, classifier, extension);
 
         BoolQueryBuilder query = boolQuery();
@@ -143,7 +140,6 @@ public class RundeckMavenResource
                 .collect(Collectors.toList());
     }
 
-
     private RundeckXO his2RundeckXO(SearchHit hit) {
         String version = (String) hit.getSource().get("version");
 
@@ -163,5 +159,4 @@ public class RundeckMavenResource
         }
         return response;
     }
-
 }
