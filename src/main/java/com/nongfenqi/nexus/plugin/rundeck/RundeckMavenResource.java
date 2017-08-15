@@ -35,19 +35,20 @@ import static org.sonatype.nexus.common.text.Strings2.isBlank;
 @Named
 @Singleton
 @Path("/rundeck/maven/options")
-public class RundeckMavenResource extends ComponentSupport implements Resource {
-
+public class RundeckMavenResource
+    extends ComponentSupport
+    implements Resource
+{
     private final SearchService searchService;
+
     private final RepositoryManager repositoryManager;
 
     private static final Response NOT_FOUND = Response.status(404).build();
 
-
     @Inject
-    public RundeckMavenResource(
-            SearchService searchService,
-            RepositoryManager repositoryManager
-    ) {
+    public RundeckMavenResource(final SearchService searchService,
+                                final RepositoryManager repositoryManager)
+    {
         this.searchService = checkNotNull(searchService);
         this.repositoryManager = checkNotNull(repositoryManager);
     }
